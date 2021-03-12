@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Collage } from './shared/collage';
 
 interface EditorState {
+  collage: Collage | null;
   currentLayerIndex: number | null;
   updatedAt: number;
 }
 
 const initialState: EditorState = {
+  collage: null,
   currentLayerIndex: null,
   updatedAt: 0,
 };

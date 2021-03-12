@@ -3,13 +3,13 @@ import { Collage } from './shared/collage';
 
 interface EditorState {
   collage: Collage | null;
-  currentLayerId: string[] | null;
+  currentLayerIds: string[] | null;
   updatedAt: number;
 }
 
 const initialState: EditorState = {
   collage: null,
-  currentLayerId: null,
+  currentLayerIds: null,
   updatedAt: 0,
 };
 
@@ -24,8 +24,11 @@ const editorSlice = createSlice({
       state.collage = collage;
       state.updatedAt = Date.now();
     },
+    selectLayerIds: (state, { payload: layerIds }: PayloadAction<string[]>) => {
+      state.currentLayerIds = layerIds;
+    },
   }
 });
 
-export const { loadSample } = editorSlice.actions;
+export const { loadSample, selectLayerIds } = editorSlice.actions;
 export default editorSlice.reducer;

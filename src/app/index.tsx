@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { Collage } from './editor/shared/collage';
 import Editor from './editor';
 import { loadSample } from './editor/duck';
-import sampleData from './sample-data.json';
+import sampleData from './sample-data';
 import { useAppDispatch } from './hooks';
 
 export const AppHeaderGap: FunctionComponent = () => (

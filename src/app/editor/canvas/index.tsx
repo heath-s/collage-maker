@@ -1,10 +1,8 @@
-import React, { FunctionComponent, useEffect, useMemo } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { FunctionComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppHeaderGap } from 'src/app';
-import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { tickAll } from '../duck';
+import { useAppSelector } from 'src/app/hooks';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -20,23 +18,7 @@ const useStyles = makeStyles(() => ({
 const Canvas: FunctionComponent = () => {
   const state = useAppSelector((state) => state.editor);
 
-  const dispatch = useAppDispatch();
-  const actions = useMemo(() => bindActionCreators({ tickAll }, dispatch), [dispatch]);
-
   const classes = useStyles();
-
-  /**
-   * @todo 제거
-   */
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      actions.tickAll();
-    }, 1000);
-
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, []);
 
   return (
     <div className={classes.root}>

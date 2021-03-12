@@ -2,7 +2,7 @@ type UUID = string;
 
 interface CollageLayerGroup {
   type: 'group';
-  layers: { [id: UUID]: CollageLayer };
+  layers: { [id: string]: CollageLayer };
   layerOrder: UUID[];
 }
 
@@ -65,13 +65,13 @@ interface CollageAssetImage {
 
 export interface Collage {
   assets: {
-    images: { [id: UUID]: CollageAssetImage }
+    images: { [id: string]: CollageAssetImage }
   };
   dimension: {
     height: number;
     width: number;
   };
-  layers: { [id: UUID]: CollageLayer };
+  layers: { [id: string]: CollageLayer };
   layerOrder: UUID[];
   metadata: {
     id: UUID;

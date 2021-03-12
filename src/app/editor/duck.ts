@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Collage } from './shared/collage';
 
 interface EditorState {
@@ -17,11 +17,15 @@ const editorSlice = createSlice({
   name: 'editor',
   initialState,
   reducers: {
-    tickAll: (state) => {
+    loadSample: (state, { payload: collage }: PayloadAction<Collage>) => {
+      /**
+       * @todo 데이터 파싱 중 오류 처리
+       */
+      state.collage = collage;
       state.updatedAt = Date.now();
     },
   }
 });
 
-export const { tickAll } = editorSlice.actions;
+export const { loadSample } = editorSlice.actions;
 export default editorSlice.reducer;

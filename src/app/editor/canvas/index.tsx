@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Canvas: FunctionComponent = () => {
-  const state = useAppSelector((state) => state.editor);
+  const editor = useAppSelector(({ editor }) => editor);
 
   const classes = useStyles();
 
@@ -30,7 +30,7 @@ const Canvas: FunctionComponent = () => {
         alignItems="center"
         className={classes.grid}
       >
-        <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{JSON.stringify(state)}</pre>
+        <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{JSON.stringify(editor)}</pre>
       </Grid>
     </div>
   );

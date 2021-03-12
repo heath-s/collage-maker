@@ -2,7 +2,6 @@
 
 이 프로젝트는 사진을 활용한 간단한 콜라주를 제작하는 Single Page Application prototype 예제입니다.
 create-react-app으로 생성한 프로젝트이므로 아래 설명에 따라 실행할 수 있습니다.
-또한 Storybook은 `npm run storybook`으로 실행할 수 있습니다.
 
 # Getting Started with Create React App
 

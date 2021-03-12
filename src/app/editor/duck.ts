@@ -3,13 +3,13 @@ import { Collage } from './shared/collage';
 
 interface EditorState {
   collage: Collage | null;
-  currentLayerIndex: number | null;
+  currentLayerId: string[] | null;
   updatedAt: number;
 }
 
 const initialState: EditorState = {
   collage: null,
-  currentLayerIndex: null,
+  currentLayerId: null,
   updatedAt: 0,
 };
 

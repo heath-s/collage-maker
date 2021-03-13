@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Drawer, makeStyles } from '@material-ui/core';
+import { Drawer, makeStyles, Typography } from '@material-ui/core';
 import { AppHeaderGap, drawerWidth } from 'src/app';
 import { useAppSelector } from 'src/app/hooks';
 import LayerList from './layer-list';
@@ -36,6 +36,13 @@ const LayerExplorer: FunctionComponent = () => {
     >
       <AppHeaderGap />
       <div className={classes.container}>
+        <Typography
+          component="h3"
+          variant="h6"
+        >
+          Layer Explorer
+        </Typography>
+
         {collage && <LayerList />}
       </div>
     </Drawer>

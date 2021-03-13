@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Drawer, makeStyles } from '@material-ui/core';
+import { Drawer, makeStyles, Typography } from '@material-ui/core';
 import { AppHeaderGap, drawerWidth } from 'src/app';
 
 const useStyles = makeStyles(() => ({
@@ -29,7 +29,12 @@ const LayerEditor: FunctionComponent = () => {
     >
       <AppHeaderGap />
       <div className={classes.container}>
-        LayerEditor
+        <Typography
+          component="h3"
+          variant="h6"
+        >
+          Layer Editor
+        </Typography>
       </div>
     </Drawer>
   );

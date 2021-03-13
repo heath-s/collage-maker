@@ -1,16 +1,17 @@
 import React, { Fragment, FunctionComponent, useMemo } from 'react';
+import AddIcon from '@material-ui/icons/Add';
 import { bindActionCreators } from 'redux';
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { makeStyles } from '@material-ui/core/styles';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import { CollageLayerGroup } from 'src/app/editor/shared/collage';
 import { selectLayerIds } from 'src/app/editor/duck';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { Collage, CollageLayer, CollageLayerGroup } from '../shared/collage';
+import { selectNestedLayer } from '../shared/selectors';
+import LayerItem from './layer-item';
 
 interface Props {
   parentLayerIds?: string[];
@@ -24,13 +25,8 @@ const useStyles = makeStyles((theme) => ({
 
 const LayerList: FunctionComponent<Props> = ({ parentLayerIds = [] }) => {
   const { layerOrder, layers } = useAppSelector(({ editor }) =>
-    parentLayerIds.reduce((collage, layerId) => {
-      if (!collage?.layers[layerId]) {
-        return {} as Omit<CollageLayerGroup, 'type'>;
-      }
-      return collage.layers[layerId] as Omit<CollageLayerGroup, 'type'>;
-    }, editor.collage as Omit<CollageLayerGroup, 'type'>)
-  );
+    selectNestedLayer(editor.collage, parentLayerIds) as Collage | CollageLayer<CollageLayerGroup>
+  ) || { layerOrder: [], layers: {} };
 
   const dispatch = useAppDispatch();
   const actions = useMemo(() => bindActionCreators({ selectLayerIds }, dispatch), [dispatch]);
@@ -45,12 +41,32 @@ const LayerList: FunctionComponent<Props> = ({ parentLayerIds = [] }) => {
 
   return (
     <List>
+      {/**
+        * @todo 레이어 추가 기능
+        */}
+      <ListItem
+        button
+        onClick={() => alert('미구현된 기능')}
+      >
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText
+          primary="레이어 추가"
+          primaryTypographyProps={{ noWrap: true }}
+        />
+      </ListItem>
+
       {reversedLayerOrder.map((id) => {
         const key = `LayerList#${id}`;
         const layer = layers[id];
         if (!layer) {
           return null;
         }
+
+        /**
+         * @todo Component 분리할 필요가 있음
+         */
         switch (layer.type) {
         case 'group': {
           return (
@@ -67,33 +83,14 @@ const LayerList: FunctionComponent<Props> = ({ parentLayerIds = [] }) => {
           );
         }
 
-        case 'image': {
-          return (
-            <ListItem
-              key={key}
-              button
-              onClick={handleClick.bind(null, [...parentLayerIds, id])}
-            >
-              <ListItemIcon>
-                <InsertPhotoIcon />
-              </ListItemIcon>
-              <ListItemText primary={layer.metadata.title} />
-            </ListItem>
-          );
-        }
-
+        case 'image':
         case 'text': {
           return (
-            <ListItem
+            <LayerItem
               key={key}
-              button
+              layerIds={[...parentLayerIds, id]}
               onClick={handleClick.bind(null, [...parentLayerIds, id])}
-            >
-              <ListItemIcon>
-                <TextFieldsIcon />
-              </ListItemIcon>
-              <ListItemText primary={layer.metadata.title} />
-            </ListItem>
+            />
           );
         }}
       })}

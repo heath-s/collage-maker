@@ -37,9 +37,7 @@ const LayerExplorer: FunctionComponent = () => {
     >
       <AppHeaderGap />
       <div className={classes.container}>
-        {collage && (
-          <LayerList />
-        )}
+        {collage && <LayerList />}
       </div>
     </Drawer>
   );

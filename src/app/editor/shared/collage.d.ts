@@ -1,6 +1,6 @@
 type UUID = string;
 
-interface CollageLayerGroup {
+export interface CollageLayerGroup {
   type: 'group';
   layers: { [id: string]: CollageLayer };
   layerOrder: UUID[];
@@ -28,14 +28,14 @@ interface CollageLayerText {
   content: string;
 }
 
-type CollageLayer = {
+export type CollageLayer<LayerType = (
+  CollageLayerGroup | CollageLayerImage | CollageLayerText
+)> = {
   id: UUID;
   metadata: {
     title: string;
   };
-} & (
-  CollageLayerGroup | CollageLayerImage | CollageLayerText
-) & {
+} & LayerType & {
   appearance: {
     dimension: {
       height: number;

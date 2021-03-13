@@ -25,7 +25,12 @@ const editorSlice = createSlice({
       state.updatedAt = Date.now();
     },
     selectLayerIds: (state, { payload: layerIds }: PayloadAction<string[]>) => {
-      state.currentLayerIds = layerIds;
+      const { currentLayerIds } = state;
+      const lastLayerId = currentLayerIds?.[currentLayerIds.length - 1];
+      const lastPayloadLayerId = layerIds[layerIds.length - 1];
+      state.currentLayerIds = lastLayerId === lastPayloadLayerId ?
+        null :
+        layerIds;
     },
   }
 });

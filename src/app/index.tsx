@@ -15,7 +15,7 @@ export const AppHeaderGap: FunctionComponent = () => (
   <Toolbar variant="dense" />
 );
 
-export const drawerWidth = 240;
+export const drawerWidth = 320;
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -51,7 +51,7 @@ const App: FunctionComponent = () => {
             color="inherit"
             onClick={handleClickLoadSample}
           >
-            샘플 데이터 불러오기
+            샘플 템플릿 불러오기
           </Button>
         </Toolbar>
       </AppBar>

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Collage, CollageLayer, CollageLayerGroup } from './shared/collage';
+import { Collage, CollageAssetImage, CollageLayer, CollageLayerGroup, CollageLayerImage, EditableCollageLayer } from './shared/collage';
 import { findCollageLayer } from './shared/utils';
 
 interface EditorState {
@@ -18,22 +18,47 @@ const editorSlice = createSlice({
   name: 'editor',
   initialState,
   reducers: {
+    addImage: (
+      state,
+      {
+        payload: { image, layerIds }
+      }: PayloadAction<{ image: CollageAssetImage, layerIds: string[] }>
+    ) => {
+      const collage = state.collage;
+      if (!collage) {
+        return;
+      }
+      collage.assets.images[image.id] = image;
+      const copiedLayerIds = [...layerIds];
+      const layerId = copiedLayerIds.pop();
+      if (!layerId) {
+        return;
+      }
+      const layer = (
+        findCollageLayer(collage, copiedLayerIds) as CollageLayer<CollageLayerGroup>
+      );
+      if (!layer) {
+        return;
+      }
+      (layer as unknown as CollageLayer<CollageLayerImage>).assetImageId = image.id;
+    },
     changeLayerOrder: (
       state,
       {
-        payload: { direction, layerIds: parentLayerIds }
+        payload: { direction, layerIds }
       }: PayloadAction<{ direction: number, layerIds: string[] }>,
     ) => {
       const collage = state.collage;
       if (!collage) {
         return;
       }
-      const layerId = parentLayerIds.pop();
+      const copiedLayerIds = [...layerIds];
+      const layerId = copiedLayerIds.pop();
       if (!layerId) {
         return;
       }
       const parentLayer = (
-        findCollageLayer(collage, parentLayerIds) as CollageLayer<CollageLayerGroup>
+        findCollageLayer(collage, copiedLayerIds) as CollageLayer<CollageLayerGroup>
       );
       if (!parentLayer) {
         return;
@@ -80,8 +105,34 @@ const editorSlice = createSlice({
         null :
         layerIds;
     },
+    updateLayer: (
+      state,
+      {
+        payload: { layer, layerIds }
+      }: PayloadAction<{ layer: EditableCollageLayer, layerIds: string[] }>
+    ) => {
+      const collage = state.collage;
+      if (!collage) {
+        return;
+      }
+      const copiedLayerIds = [...layerIds];
+      const layerId = copiedLayerIds.pop();
+      if (!layerId) {
+        return;
+      }
+      const parentLayer = (
+        findCollageLayer(collage, copiedLayerIds) as CollageLayer<CollageLayerGroup>
+      );
+      if (!parentLayer) {
+        return;
+      }
+      (parentLayer.layers[layerId] as unknown) = {
+        ...parentLayer.layers[layerId],
+        ...layer,
+      };
+    }
   }
 });
 
-export const { changeLayerOrder, loadSample, selectLayerIds } = editorSlice.actions;
+export const { addImage, changeLayerOrder, loadSample, selectLayerIds, updateLayer } = editorSlice.actions;
 export default editorSlice.reducer;

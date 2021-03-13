@@ -51,7 +51,13 @@ export type CollageLayer<LayerType = (
   }
 };
 
-interface CollageAssetImage {
+export type EditableCollageLayer = (
+  Omit<CollageLayer<CollageLayerGroup>, 'id' | 'type' | 'layers' | 'layerOrder'> |
+  Omit<CollageLayer<CollageLayerImage>, 'id' | 'type'> |
+  Omit<CollageLayer<CollageLayerText>, 'id' | 'type'>
+);
+
+export interface CollageAssetImage {
   id: UUID;
   /**
    * 이미지 내용은 지금 단계에서는 Base64 혹은 이미지 경로로 처리

@@ -1,8 +1,8 @@
 import React, { Fragment, FunctionComponent, useMemo } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import { bindActionCreators } from 'redux';
-import { List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { changeLayerOrder, selectLayerIds } from 'src/app/editor/duck';
+import { Divider, List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { selectNestedLayer } from '../shared/selectors';
 import { Collage, CollageLayer, CollageLayerGroup } from '../shared/collage';
@@ -76,6 +76,7 @@ const LayerList: FunctionComponent<Props> = ({ parentLayerIds = [] }) => {
         case 'group': {
           return (
             <Fragment key={key}>
+              <Divider />
               <LayerItem
                 isBottom={index === 0}
                 isTop={index === layerOrder.length - 1}
@@ -89,6 +90,7 @@ const LayerList: FunctionComponent<Props> = ({ parentLayerIds = [] }) => {
                   parentLayerIds={[...parentLayerIds, id]}
                 />
               </div>
+              <Divider />
             </Fragment>
           );
         }

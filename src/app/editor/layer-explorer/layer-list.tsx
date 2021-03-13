@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const LayerList: FunctionComponent<Props> = ({ parentLayerIds = [] }) => {
   const { layerOrder, layers } = useAppSelector(({ editor }) =>
     findCollageLayer(editor.collage, parentLayerIds) as Collage | CollageLayer<CollageLayerGroup>
-  ) || { layerOrder: [], layers: {} };
+  );
 
   const dispatch = useAppDispatch();
   const actions = useMemo(() => bindActionCreators({

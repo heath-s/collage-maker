@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { changeLayerOrder, selectLayerIds } from 'src/app/editor/duck';
 import { Divider, List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { selectNestedLayer } from '../shared/selectors';
 import { Collage, CollageLayer, CollageLayerGroup } from '../shared/collage';
+import { findCollageLayer } from '../shared/utils';
 import LayerItem from './layer-item';
 
 interface Props {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LayerList: FunctionComponent<Props> = ({ parentLayerIds = [] }) => {
   const { layerOrder, layers } = useAppSelector(({ editor }) =>
-    selectNestedLayer(editor.collage, parentLayerIds) as Collage | CollageLayer<CollageLayerGroup>
+    findCollageLayer(editor.collage, parentLayerIds) as Collage | CollageLayer<CollageLayerGroup>
   ) || { layerOrder: [], layers: {} };
 
   const dispatch = useAppDispatch();

@@ -3,7 +3,7 @@ import { IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemTe
 import { ArrowDownward as ArrowDownwardIcon, ArrowUpward as ArrowUpwardIcon, Collections as CollectionsIcon, InsertPhoto as InsertPhotoIcon, TextFields as TextFieldsIcon } from '@material-ui/icons';
 import { useAppSelector } from 'src/app/hooks';
 import { CollageLayer } from '../shared/collage';
-import { selectNestedLayer } from '../shared/selectors';
+import { findCollageLayer } from '../shared/utils';
 
 interface Props {
   isBottom: boolean;
@@ -24,7 +24,7 @@ const LayerItem: FunctionComponent<Props> = ({
 }) => {
   const layer = (
     useAppSelector(({ editor }) =>
-      selectNestedLayer(editor.collage, layerIds)
+      findCollageLayer(editor.collage, layerIds)
     ) || {}
   ) as CollageLayer;
   const selected = useAppSelector(({ editor }) => {

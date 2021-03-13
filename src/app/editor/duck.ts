@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Collage, CollageLayer, CollageLayerGroup } from './shared/collage';
-import { selectNestedLayer } from './shared/selectors';
+import { findCollageLayer } from './shared/utils';
 
 interface EditorState {
   collage: Collage | null;
@@ -33,7 +33,7 @@ const editorSlice = createSlice({
         return;
       }
       const parentLayer = (
-        selectNestedLayer(collage, parentLayerIds) as CollageLayer<CollageLayerGroup>
+        findCollageLayer(collage, parentLayerIds) as CollageLayer<CollageLayerGroup>
       );
       if (!parentLayer) {
         return;

@@ -1,8 +1,8 @@
 import { Collage, CollageLayer, CollageLayerGroup } from './collage';
 
-export const selectNestedLayer = (collage: Collage | null, parentLayerIds: string[]): CollageLayer | null => {
+export const selectNestedLayer = (collage: Collage | null, parentLayerIds: string[] | null): CollageLayer | null => {
   const item = collage as unknown as CollageLayer<CollageLayerGroup>;
-  if (parentLayerIds.length === 0) {
+  if (!parentLayerIds || parentLayerIds.length === 0) {
     return item;
   }
   if (!collage) {

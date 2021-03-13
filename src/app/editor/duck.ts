@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Collage } from './shared/collage';
+import { Collage, CollageLayer, CollageLayerGroup } from './shared/collage';
+import { selectNestedLayer } from './shared/selectors';
 
 interface EditorState {
   collage: Collage | null;
@@ -17,6 +18,53 @@ const editorSlice = createSlice({
   name: 'editor',
   initialState,
   reducers: {
+    changeLayerOrder: (
+      state,
+      {
+        payload: { direction, layerIds: parentLayerIds }
+      }: PayloadAction<{ direction: number, layerIds: string[] }>,
+    ) => {
+      const collage = state.collage;
+      if (!collage) {
+        return;
+      }
+      const layerId = parentLayerIds.pop();
+      if (!layerId) {
+        return;
+      }
+      const parentLayer = (
+        selectNestedLayer(collage, parentLayerIds) as CollageLayer<CollageLayerGroup>
+      );
+      if (!parentLayer) {
+        return;
+      }
+      const layerOrder = parentLayer.layerOrder;
+      const layerIndex = layerOrder.indexOf(layerId);
+      switch (direction) {
+      case -1: {
+        parentLayer.layerOrder = [
+          ...layerOrder.slice(0, layerIndex - 1),
+          layerId,
+          layerOrder[layerIndex - 1],
+          ...layerOrder.slice(layerIndex + 1),
+        ];
+        break;
+      }
+
+      case 1: {
+        parentLayer.layerOrder = [
+          ...layerOrder.slice(0, layerIndex),
+          layerOrder[layerIndex + 1],
+          layerId,
+          ...layerOrder.slice(layerIndex + 2),
+        ];
+        break;
+      }
+
+      default: {
+        return;
+      }}
+    },
     loadSample: (state, { payload: collage }: PayloadAction<Collage>) => {
       /**
        * @todo 데이터 파싱 중 오류 처리
@@ -35,5 +83,5 @@ const editorSlice = createSlice({
   }
 });
 
-export const { loadSample, selectLayerIds } = editorSlice.actions;
+export const { changeLayerOrder, loadSample, selectLayerIds } = editorSlice.actions;
 export default editorSlice.reducer;

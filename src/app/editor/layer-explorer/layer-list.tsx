@@ -1,12 +1,7 @@
 import React, { Fragment, FunctionComponent, useMemo } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import { bindActionCreators } from 'redux';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import { makeStyles } from '@material-ui/core/styles';
+import { List, ListItem, ListItemIcon, ListItemText, ListSubheader, makeStyles } from '@material-ui/core';
 import { selectLayerIds } from 'src/app/editor/duck';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { Collage, CollageLayer, CollageLayerGroup } from '../shared/collage';

@@ -1,10 +1,6 @@
 import React, { FunctionComponent, useMemo } from 'react';
+import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { Collage } from './editor/shared/collage';
 import Editor from './editor';
 import { loadSample } from './editor/duck';

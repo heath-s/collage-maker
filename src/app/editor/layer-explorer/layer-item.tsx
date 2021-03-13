@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { InsertPhoto as InsertPhotoIcon, TextFields as TextFieldsIcon } from '@material-ui/icons';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { useAppSelector } from 'src/app/hooks';
 import { CollageLayer } from '../shared/collage';
 import { selectNestedLayer } from '../shared/selectors';

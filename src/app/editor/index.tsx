@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core';
 import Canvas from './canvas';
 import LayerEditor from './layer-editor';
 import LayerExplorer from './layer-explorer';

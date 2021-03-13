@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, makeStyles } from '@material-ui/core';
 import { AppHeaderGap } from 'src/app';
 import { useAppSelector } from 'src/app/hooks';
 

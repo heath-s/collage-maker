@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import Drawer from '@material-ui/core/Drawer';
-import { makeStyles } from '@material-ui/core/styles';
+import { Drawer, makeStyles } from '@material-ui/core';
 import { AppHeaderGap, drawerWidth } from 'src/app';
 
 const useStyles = makeStyles(() => ({

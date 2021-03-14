@@ -40,14 +40,22 @@ const LayerText: FunctionComponent<Props> = ({
     onDragEnd(layerIds, Math.round(target.x()), Math.round(target.y()));
   };
 
+  const handleTransform = ({ target }: Konva.KonvaEventObject<Event>) => {
+    target.setAttrs({
+      height: Math.round(target.height() * target.scaleY()),
+      scaleX: 1,
+      scaleY: 1,
+      width: Math.round(target.width() * target.scaleX()),
+    });
+  };
+
   const handleTransformEnd = ({ target }: Konva.KonvaEventObject<Event>) => {
     const scaleX = target.scaleX();
     const scaleY = target.scaleY();
     target.scaleX(1);
     target.scaleY(1);
-    let { height, width } = appearance.dimension;
-    height = Math.round(height * scaleY);
-    width = Math.round(width * scaleX);
+    const height = Math.round(target.height() * scaleY);
+    const width = Math.round(target.width() * scaleX);
 
     onTransformEnd(
       layerIds,
@@ -74,6 +82,7 @@ const LayerText: FunctionComponent<Props> = ({
         letterSpacing={textStyle.letterSpacing}
         onClick={handleClick}
         onDragEnd={handleDragEnd}
+        onTransform={handleTransform}
         onTransformEnd={handleTransformEnd}
         rotation={transform.rotate}
         text={content}

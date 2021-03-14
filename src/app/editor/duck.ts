@@ -30,7 +30,6 @@ const editorSlice = createSlice({
       if (!collage) {
         return;
       }
-      collage.assets.images[image.id] = image;
       const copiedLayerIds = [...layerIds];
       const layerId = copiedLayerIds.pop();
       if (!layerId) {
@@ -42,6 +41,7 @@ const editorSlice = createSlice({
       if (!layer) {
         return;
       }
+      collage.assets.images[image.id] = image;
       (layer as unknown as CollageLayer<CollageLayerImage>).assetImageId = image.id;
       state.currentLayerUpdatedAt = Date.now();
     },

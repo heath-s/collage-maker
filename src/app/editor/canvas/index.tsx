@@ -1,7 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
+import { Layer, Stage } from 'react-konva';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { AppHeaderGap } from 'src/app';
 import { useAppSelector } from 'src/app/hooks';
+import { CollageLayer, CollageLayerGroup } from '../shared/collage.d';
+import LayerGroup from './layer-group';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -15,7 +19,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Canvas: FunctionComponent = () => {
-  const editor = useAppSelector(({ editor }) => editor);
+  const collage = useAppSelector(({ editor }) => editor.collage);
 
   const classes = useStyles();
 
@@ -29,7 +33,24 @@ const Canvas: FunctionComponent = () => {
         alignItems="center"
         className={classes.grid}
       >
-        <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{JSON.stringify(editor)}</pre>
+        {collage && (
+          <ReactReduxContext.Consumer>
+            {({ store }) => (
+              <Stage
+                height={596}
+                width={335}
+              >
+                <Provider store={store}>
+                  <Layer>
+                    <LayerGroup
+                      layer={collage as unknown as CollageLayer<CollageLayerGroup>}
+                    />
+                  </Layer>
+                </Provider>
+              </Stage>
+            )}
+          </ReactReduxContext.Consumer>
+        )}
       </Grid>
     </div>
   );

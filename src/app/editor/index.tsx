@@ -28,6 +28,12 @@ const useStyles = makeStyles(() => ({
 const Editor: FunctionComponent = () => {
   const classes = useStyles();
 
+  /**
+   * @todo Font pre-loading
+   * 현재는 폰트 첫 로딩 전에 Canvas에 적용이 되지 않음.
+   * Font 파일 로드 중 LoadingIndicator 표시 후, 로드 완료 후 Editor 표시하는 것으로 변경
+   */
+
   return (
     <div className={classes.root}>
       <aside className={classes.layerExplorer}>

@@ -25,6 +25,12 @@ const LayerImage: FunctionComponent<Props> = ({ layer: { appearance, assetImageI
   }, [loadedImage, appearance.dimension]);
 
   const { compositeOperation, dimension, position, transform } = appearance;
+  const centered = {
+    offsetX: dimension.width / 2,
+    offsetY: dimension.height / 2,
+    x: position.left + dimension.width / 2,
+    y: position.top + dimension.height / 2
+  };
 
   return (
     <Image
@@ -32,11 +38,13 @@ const LayerImage: FunctionComponent<Props> = ({ layer: { appearance, assetImageI
       globalCompositeOperation={compositeOperation || undefined}
       height={dimension.height}
       image={loadedImage}
+      offsetX={centered.offsetX}
+      offsetY={centered.offsetY}
       opacity={appearance.alpha}
       rotation={transform.rotate}
       width={dimension.width}
-      x={position.left}
-      y={position.top}
+      x={centered.x}
+      y={centered.y}
     />
   );
 };

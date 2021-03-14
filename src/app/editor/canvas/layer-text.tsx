@@ -9,6 +9,12 @@ type Props = LayerProps<CollageLayerText> & {
 
 const LayerText: FunctionComponent<Props> = ({ layer: { appearance, content } }) => {
   const { dimension, position, textStyle, transform } = appearance;
+  const centered = {
+    offsetX: dimension.width / 2,
+    offsetY: dimension.height / 2,
+    x: position.left + dimension.width / 2,
+    y: position.top + dimension.height / 2
+  };
 
   return (
     <Text
@@ -18,11 +24,13 @@ const LayerText: FunctionComponent<Props> = ({ layer: { appearance, content } })
       fontSize={textStyle.fontSize}
       height={dimension.height}
       letterSpacing={textStyle.letterSpacing}
+      offsetX={centered.offsetX}
+      offsetY={centered.offsetY}
       rotation={transform.rotate}
       text={content}
       width={dimension.width}
-      x={position.left}
-      y={position.top}
+      x={centered.x}
+      y={centered.y}
     />
   );
 };

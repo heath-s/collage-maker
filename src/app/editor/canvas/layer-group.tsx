@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { Group } from 'react-konva';
 import { bindActionCreators } from 'redux';
-import { updateLayerDimension, updateLayerPosition } from 'src/app/editor/duck';
+import { addImage, updateLayerDimension, updateLayerPosition } from 'src/app/editor/duck';
 import { useAppDispatch } from 'src/app/hooks';
-import { CollageLayerGroup } from '../shared/collage.d';
+import { CollageAssetImage, CollageLayerGroup } from '../shared/collage.d';
 import { LayerProps } from './index.d';
 import LayerImage from './layer-image';
 import LayerText from './layer-text';
@@ -13,11 +13,15 @@ type Props = LayerProps<CollageLayerGroup>;
 const LayerGroup: FunctionComponent<Props> = ({ layer: { layerOrder, layers }, layerIds }) => {
   const dispatch = useAppDispatch();
   const actions = useMemo(
-    () => bindActionCreators({ updateLayerDimension, updateLayerPosition }, dispatch), [dispatch]
+    () => bindActionCreators({ addImage, updateLayerDimension, updateLayerPosition }, dispatch), [dispatch]
   );
 
   const handleDragEnd = (layerIds: string[], left: number, top: number) => {
     actions.updateLayerPosition({ layerIds, left, top });
+  };
+
+  const handleImageAdded = (layerIds: string[], image: CollageAssetImage) => {
+    actions.addImage({ image, layerIds });
   };
 
   const handleTransformEnd = (
@@ -54,6 +58,7 @@ const LayerGroup: FunctionComponent<Props> = ({ layer: { layerOrder, layers }, l
               layer={layer}
               layerIds={childLayerIds}
               onDragEnd={handleDragEnd}
+              onImageAdded={handleImageAdded}
               onTransformEnd={handleTransformEnd}
             />
           );

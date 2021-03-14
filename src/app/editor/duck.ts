@@ -37,7 +37,7 @@ const editorSlice = createSlice({
         return;
       }
       const layer = (
-        findCollageLayer(collage, copiedLayerIds) as CollageLayer<CollageLayerGroup>
+        findCollageLayer(collage, layerIds) as CollageLayer<CollageLayerGroup>
       );
       if (!layer) {
         return;

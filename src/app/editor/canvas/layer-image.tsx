@@ -94,6 +94,9 @@ const LayerImage: FunctionComponent<Props> = ({
   };
 
   const handleDragEnd = ({ target }: Konva.KonvaEventObject<DragEvent>) => {
+    if (!isSelected) {
+      return;
+    }
     onDragEnd(layerIds, Math.round(target.x()), Math.round(target.y()));
   };
 

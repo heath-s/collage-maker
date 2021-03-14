@@ -26,13 +26,7 @@ const useStyles = makeStyles(() => ({
 const LayerEditor: FunctionComponent = () => {
   const { collage, currentLayerIds } = useAppSelector(
     ({ editor }) => editor,
-    (prev, next) => (
-      prev.currentLayerIds === next.currentLayerIds &&
-      (
-        findCollageLayer(prev.collage, prev.currentLayerIds) ===
-        findCollageLayer(next.collage, next.currentLayerIds)
-      )
-    )
+    (prev, next) => prev.currentLayerIds === next.currentLayerIds
   );
 
   const dispatch = useAppDispatch();

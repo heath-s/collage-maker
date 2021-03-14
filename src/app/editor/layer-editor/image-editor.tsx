@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FunctionComponent, useEffect, useMemo } from 'react';
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
-import { Collage, CollageAssetImage } from '../shared/collage';
+import { Collage, CollageAssetImage } from '../shared/collage.d';
 import { EditorProps, FormObject } from './index.d';
 import { translateCollageLayerToForm, translateFormToCollageLayer } from './translator';
 

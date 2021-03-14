@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
 import { ArrowDownward as ArrowDownwardIcon, ArrowUpward as ArrowUpwardIcon, Collections as CollectionsIcon, InsertPhoto as InsertPhotoIcon, TextFields as TextFieldsIcon } from '@material-ui/icons';
 import { useAppSelector } from 'src/app/hooks';
-import { CollageLayer } from '../shared/collage';
+import { CollageLayer } from '../shared/collage.d';
 import { findCollageLayer } from '../shared/utils';
 
 interface Props {

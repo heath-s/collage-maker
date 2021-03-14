@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Collage, CollageAssetImage, CollageLayer, CollageLayerGroup, CollageLayerImage, EditableCollageLayer } from './shared/collage';
+import { Collage, CollageAssetImage, CollageLayer, CollageLayerGroup, CollageLayerImage, EditableCollageLayer } from './shared/collage.d';
 import { findCollageLayer } from './shared/utils';
 
 interface EditorState {

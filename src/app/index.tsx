@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
-import { Collage } from './editor/shared/collage';
+import { Collage } from './editor/shared/collage.d';
 import Editor from './editor';
 import { loadSample } from './editor/duck';
 import sampleData from './sample-data';

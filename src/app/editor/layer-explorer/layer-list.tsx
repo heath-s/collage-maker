@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { changeLayerOrder, selectLayerIds } from 'src/app/editor/duck';
 import { Divider, List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { Collage, CollageLayer, CollageLayerGroup } from '../shared/collage';
+import { Collage, CollageLayer, CollageLayerGroup } from '../shared/collage.d';
 import { findCollageLayer } from '../shared/utils';
 import LayerItem from './layer-item';
 

@@ -1,4 +1,4 @@
-import { Collage, CollageLayer, CollageLayerGroup } from './collage';
+import { Collage, CollageLayer, CollageLayerGroup } from './collage.d';
 
 export const findCollageLayer = (collage: Collage | null, parentLayerIds: string[] | null): CollageLayer | null => {
   const item = collage as unknown as CollageLayer<CollageLayerGroup>;

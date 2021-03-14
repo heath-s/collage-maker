@@ -4,7 +4,7 @@ import { Drawer, makeStyles, Typography } from '@material-ui/core';
 import { addImage, updateLayer } from 'src/app/editor/duck';
 import { AppHeaderGap, drawerWidth } from 'src/app';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { CollageAssetImage, EditableCollageLayer } from '../shared/collage';
+import { CollageAssetImage, EditableCollageLayer } from '../shared/collage.d';
 import { findCollageLayer } from '../shared/utils';
 import GroupEditor from './group-editor';
 import ImageEditor from './image-editor';

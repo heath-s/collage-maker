@@ -1,4 +1,4 @@
-import { Collage } from './editor/shared/collage';
+import { Collage } from './editor/shared/collage.d';
 
 export default {
   metadata: {

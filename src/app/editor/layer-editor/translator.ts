@@ -1,4 +1,4 @@
-import { CollageLayer, CollageLayerImage, CollageLayerText, EditableCollageLayer } from '../shared/collage';
+import { CollageLayer, CollageLayerImage, CollageLayerText, EditableCollageLayer } from '../shared/collage.d';
 import { FormObject } from './index.d';
 
 export const translateCollageLayerToForm = (collageLayer: CollageLayer): FormObject => {

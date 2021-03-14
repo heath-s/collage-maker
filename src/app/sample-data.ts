@@ -118,7 +118,7 @@ export default {
     'layer-2': {
       id: 'layer-2',
       metadata: {
-        title: 'Text "2020"'
+        title: '2020'
       },
       type: 'text',
       appearance: {
@@ -130,12 +130,12 @@ export default {
           textAlign: 'center'
         },
         dimension: {
-          height: 32,
-          width: 120
+          height: 22,
+          width: 64
         },
         position: {
-          left: 100,
-          top: 150
+          left: 128,
+          top: 105
         },
         transform: {
           rotate: 0
@@ -146,7 +146,7 @@ export default {
     'layer-3': {
       id: 'layer-3',
       metadata: {
-        title: 'Text "Summer"'
+        title: 'SUMMER'
       },
       type: 'text',
       appearance: {
@@ -158,12 +158,12 @@ export default {
           textAlign: 'center'
         },
         dimension: {
-          height: 64,
-          width: 240
+          height: 38,
+          width: 184
         },
         position: {
-          left: 50,
-          top: 200
+          left: 73,
+          top: 130
         },
         transform: {
           rotate: 0
@@ -174,10 +174,58 @@ export default {
     'layer-4': {
       id: 'layer-4',
       metadata: {
-        title: 'ReplaceableImage 1'
+        title: 'ReplaceableImageGroup 1'
       },
-      type: 'image',
-      assetImageId: 'template_scrapbook_2_2_image',
+      type: 'group',
+      layers: {
+        'layer-4-1': {
+          id: 'layer-4-1',
+          metadata: {
+            title: 'ReplaceableImage 1 Background'
+          },
+          type: 'image',
+          assetImageId: 'template_scrapbook_2_2_image',
+          appearance: {
+            alpha: 1,
+            compositeOperation: 'none',
+            dimension: {
+              height: 369,
+              width: 288
+            },
+            position: {
+              left: 99,
+              top: 339
+            },
+            transform: {
+              rotate: 0
+            }
+          }
+        },
+        'layer-4-2': {
+          id: 'layer-4-2',
+          metadata: {
+            title: 'ReplaceableImageGroup 1'
+          },
+          type: 'image',
+          assetImageId: '',
+          appearance: {
+            alpha: 1,
+            compositeOperation: 'none',
+            dimension: {
+              height: 216,
+              width: 172
+            },
+            position: {
+              left: 144,
+              top: 420
+            },
+            transform: {
+              rotate: -6
+            }
+          }
+        }
+      },
+      layerOrder: ['layer-4-1', 'layer-4-2'],
       appearance: {
         alpha: 1,
         compositeOperation: 'none',
@@ -186,8 +234,8 @@ export default {
           width: 288
         },
         position: {
-          left: 5,
-          top: 300
+          left: 99,
+          top: 339
         },
         transform: {
           rotate: 0
@@ -199,8 +247,56 @@ export default {
       metadata: {
         title: 'ReplaceableImage 2'
       },
-      type: 'image',
-      assetImageId: 'template_scrapbook_2_1_image',
+      type: 'group',
+      layers: {
+        'layer-5-1': {
+          id: 'layer-5-1',
+          metadata: {
+            title: 'ReplaceableImage 2 Background'
+          },
+          type: 'image',
+          assetImageId: 'template_scrapbook_2_1_image',
+          appearance: {
+            alpha: 1,
+            compositeOperation: 'none',
+            dimension: {
+              height: 356,
+              width: 266
+            },
+            position: {
+              left: -34,
+              top: 186
+            },
+            transform: {
+              rotate: 0
+            }
+          }
+        },
+        'layer-5-2': {
+          id: 'layer-5-2',
+          metadata: {
+            title: 'ReplaceableImage 2'
+          },
+          type: 'image',
+          assetImageId: '',
+          appearance: {
+            alpha: 1,
+            compositeOperation: 'none',
+            dimension: {
+              height: 216,
+              width: 172
+            },
+            position: {
+              left: 32,
+              top: 238
+            },
+            transform: {
+              rotate: 10
+            }
+          }
+        }
+      },
+      layerOrder: ['layer-5-1', 'layer-5-2'],
       appearance: {
         alpha: 1,
         compositeOperation: 'none',
@@ -209,8 +305,8 @@ export default {
           width: 266
         },
         position: {
-          left: 45,
-          top: 200
+          left: -34,
+          top: 186
         },
         transform: {
           rotate: 0

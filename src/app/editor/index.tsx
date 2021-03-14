@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import Canvas from './canvas';
 import LayerEditor from './layer-editor';
 import LayerExplorer from './layer-explorer';
+import './index.scss';
 
 export const drawerWidth = 240;
 

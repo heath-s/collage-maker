@@ -52,36 +52,6 @@ const GroupEditor: FunctionComponent<Props> = ({ layer, onChange }) => {
             value={(formik.values.position as FormObject).top}
           />
         </FormControl>
-
-        <FormControl fullWidth>
-          <TextField
-            name="dimension.width"
-            label="Width"
-            onChange={handleChange}
-            type="number"
-            value={(formik.values.dimension as FormObject).width}
-          />
-        </FormControl>
-
-        <FormControl fullWidth>
-          <TextField
-            name="dimension.height"
-            label="Height"
-            onChange={handleChange}
-            type="number"
-            value={(formik.values.dimension as FormObject).height}
-          />
-        </FormControl>
-
-        <FormControl fullWidth>
-          <TextField
-            name="transform.rotate"
-            label="Rotate"
-            onChange={handleChange}
-            type="number"
-            value={(formik.values.transform as FormObject).rotate}
-          />
-        </FormControl>
       </form>
     </section>
   );

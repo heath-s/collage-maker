@@ -10,7 +10,10 @@ import LayerText from './layer-text';
 
 type Props = LayerProps<CollageLayerGroup>;
 
-const LayerGroup: FunctionComponent<Props> = ({ layer: { layerOrder, layers }, layerIds }) => {
+const LayerGroup: FunctionComponent<Props> = ({
+  layer: { id, appearance, layerOrder, layers },
+  layerIds
+}) => {
   const dispatch = useAppDispatch();
   const actions = useMemo(
     () => bindActionCreators({ addImage, updateLayerDimension, updateLayerPosition }, dispatch), [dispatch]
@@ -30,8 +33,14 @@ const LayerGroup: FunctionComponent<Props> = ({ layer: { layerOrder, layers }, l
     actions.updateLayerDimension({ height, layerIds, left, rotate, top, width });
   };
 
+  const { position } = appearance || { position: { left: 0, top: 0 } };
+
   return (
-    <Group>
+    <Group
+      draggable={!!id && isSelected}
+      x={position.left}
+      y={position.top}
+    >
       {layerOrder.map((id) => {
         const key = `LayerGroup#${id}`;
         const layer = layers[id];

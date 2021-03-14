@@ -230,17 +230,10 @@ export default {
       appearance: {
         alpha: 1,
         compositeOperation: 'none',
-        dimension: {
-          height: 369,
-          width: 288
-        },
         position: {
           left: 99,
           top: 339
         },
-        transform: {
-          rotate: 0
-        }
       }
     },
     'layer-5': {
@@ -302,17 +295,10 @@ export default {
       appearance: {
         alpha: 1,
         compositeOperation: 'none',
-        dimension: {
-          height: 356,
-          width: 266
-        },
         position: {
           left: -34,
           top: 186
         },
-        transform: {
-          rotate: 0
-        }
       }
     }
   },

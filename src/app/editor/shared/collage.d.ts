@@ -15,18 +15,32 @@ interface CollageLayerImage {
   appearance: {
     alpha: number;
     compositeOperation: typeof CanvasRenderingContext2D['globalCompositeOperation'] | 'none';
+    dimension: {
+      height: number;
+      width: number;
+    };
+    transform: {
+      rotate: number;
+    };
   };
 }
 
 interface CollageLayerText {
   type: 'text';
   appearance: {
+    dimension: {
+      height: number;
+      width: number;
+    };
     textStyle: {
       color: string;
       fontFamily: string;
       fontSize: number;
       letterSpacing: number;
       textAlign: 'left' | 'center' | 'right';
+    };
+    transform: {
+      rotate: number;
     };
   };
   content: string;
@@ -41,17 +55,10 @@ export type CollageLayer<LayerType = (
   };
 } & LayerType & {
   appearance: {
-    dimension: {
-      height: number;
-      width: number;
-    }
     position: {
       left: number;
       top: number;
     };
-    transform: {
-      rotate: number;
-    }
   }
 };
 

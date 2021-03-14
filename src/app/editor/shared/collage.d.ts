@@ -11,7 +11,7 @@ interface CollageLayerImage {
   assetImageId: UUID;
   appearance: {
     alpha: number;
-    compositeOperation?: typeof CanvasRenderingContext2D['globalCompositeOperation'];
+    compositeOperation: typeof CanvasRenderingContext2D['globalCompositeOperation'] | 'none';
   };
 }
 

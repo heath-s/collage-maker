@@ -62,6 +62,7 @@ export default {
           assetImageId: 'template_scrapbook_2_3_image-x',
           appearance: {
             alpha: 1,
+            compositeOperation: 'none',
             dimension: {
               height: 596,
               width: 335
@@ -179,6 +180,7 @@ export default {
       assetImageId: 'template_scrapbook_2_2_image',
       appearance: {
         alpha: 1,
+        compositeOperation: 'none',
         dimension: {
           height: 246,
           width: 192
@@ -201,6 +203,7 @@ export default {
       assetImageId: 'template_scrapbook_2_1_image',
       appearance: {
         alpha: 1,
+        compositeOperation: 'none',
         dimension: {
           height: 237,
           width: 177

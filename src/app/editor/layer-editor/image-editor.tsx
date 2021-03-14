@@ -179,8 +179,7 @@ const ImageEditor: FunctionComponent<Props> = ({ assetImages, layer, onImageAdde
             onChange={handleChange}
             value={formik.values.compositeOperation}
           >
-            <MenuItem>없음</MenuItem>
-
+            <MenuItem value="none">없음</MenuItem>
             {COMPOSITE_OPERATIONS.map((id) => (
               <MenuItem
                 key={id}

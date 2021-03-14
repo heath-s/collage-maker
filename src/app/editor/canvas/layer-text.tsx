@@ -47,6 +47,11 @@ const LayerText: FunctionComponent<Props> = ({ layer, layerIds, onDragEnd, onTra
     setTextareaContent(content);
     setIsEditable(true);
   };
+  useEffect(() => {
+    if (!isSelected) {
+      setIsEditable(false);
+    }
+  }, [isSelected]);
 
   const handleDragEnd = ({ target }: Konva.KonvaEventObject<DragEvent>) => {
     if (!isSelected) {
@@ -133,6 +138,7 @@ const LayerText: FunctionComponent<Props> = ({ layer, layerIds, onDragEnd, onTra
               <div
                 contentEditable
                 onBlur={handleTextareaBlur}
+                suppressContentEditableWarning
                 style={{
                   backgroundColor: '#ffffff',
                   bottom: -1,

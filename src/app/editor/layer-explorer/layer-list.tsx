@@ -69,7 +69,7 @@ const LayerList: FunctionComponent<Props> = ({ parentLayerIds = [] }) => {
         }
 
         /**
-         * @todo Layer 순서 변경 기능
+         * @todo Layer 순서 Drag & Drop으로 변경
          */
         const layerIds = [...parentLayerIds, id];
         switch (layer.type) {

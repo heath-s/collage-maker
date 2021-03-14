@@ -5,12 +5,14 @@ import { findCollageLayer } from './shared/utils';
 interface EditorState {
   collage: Collage | null;
   currentLayerIds: string[] | null;
+  currentLayerUpdatedAt: number;
   updatedAt: number;
 }
 
 const initialState: EditorState = {
   collage: null,
   currentLayerIds: null,
+  currentLayerUpdatedAt: 0,
   updatedAt: 0,
 };
 
@@ -41,6 +43,7 @@ const editorSlice = createSlice({
         return;
       }
       (layer as unknown as CollageLayer<CollageLayerImage>).assetImageId = image.id;
+      state.currentLayerUpdatedAt = Date.now();
     },
     changeLayerOrder: (
       state,
@@ -95,6 +98,8 @@ const editorSlice = createSlice({
        * @todo 데이터 파싱 중 오류 처리
        */
       state.collage = collage;
+      state.currentLayerIds = null;
+      state.currentLayerUpdatedAt = 0;
       state.updatedAt = Date.now();
     },
     selectLayerIds: (state, { payload: layerIds }: PayloadAction<string[]>) => {
@@ -104,6 +109,7 @@ const editorSlice = createSlice({
       state.currentLayerIds = lastLayerId === lastPayloadLayerId ?
         null :
         layerIds;
+      state.currentLayerUpdatedAt = Date.now();
     },
     updateLayer: (
       state,
@@ -130,9 +136,61 @@ const editorSlice = createSlice({
         ...parentLayer.layers[layerId],
         ...layer,
       };
-    }
+      state.currentLayerUpdatedAt = Date.now();
+    },
+    updateLayerDimension: (
+      state,
+      {
+        payload: { height, layerIds, left, rotate, top, width }
+      }: PayloadAction<{
+        height: number;
+        layerIds: string[];
+        left: number;
+        rotate: number;
+        top: number;
+        width: number;
+      }>
+    ) => {
+      const collage = state.collage;
+      if (!collage) {
+        return;
+      }
+      const layer = findCollageLayer(collage, layerIds) as CollageLayer;
+      if (!layer) {
+        return;
+      }
+      layer.appearance.dimension = { height, width };
+      layer.appearance.position = { left, top };
+      layer.appearance.transform = { rotate };
+      state.currentLayerUpdatedAt = Date.now();
+    },
+    updateLayerPosition: (
+      state,
+      {
+        payload: { layerIds, left, top }
+      }: PayloadAction<{ layerIds: string[], left: number, top: number }>
+    ) => {
+      const collage = state.collage;
+      if (!collage) {
+        return;
+      }
+      const layer = findCollageLayer(collage, layerIds) as CollageLayer;
+      if (!layer) {
+        return;
+      }
+      layer.appearance.position = { left, top };
+      state.currentLayerUpdatedAt = Date.now();
+    },
   }
 });
 
-export const { addImage, changeLayerOrder, loadSample, selectLayerIds, updateLayer } = editorSlice.actions;
+export const {
+  addImage,
+  changeLayerOrder,
+  loadSample,
+  selectLayerIds,
+  updateLayer,
+  updateLayerDimension,
+  updateLayerPosition,
+} = editorSlice.actions;
 export default editorSlice.reducer;

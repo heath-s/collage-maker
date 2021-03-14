@@ -1,37 +1,93 @@
-import React, { FunctionComponent } from 'react';
-import { Text } from 'react-konva';
+import React, { FunctionComponent, useEffect, useMemo, useRef } from 'react';
+import { bindActionCreators } from 'redux';
+import Konva from 'konva';
+import { Group, Text, Transformer } from 'react-konva';
+import { selectLayerIds } from 'src/app/editor/duck';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { CollageLayerText } from '../shared/collage.d';
 import { LayerProps } from './index.d';
 
 type Props = LayerProps<CollageLayerText> & {
+  onDragEnd: (layerIds: string[], left: number, top: number) => void;
+  onTransformEnd: (
+    layerIds: string[], left: number, top: number, width: number, height: number, rotate: number,
+  ) => void;
+};
 
-}
+const LayerText: FunctionComponent<Props> = ({
+  layer: { id, appearance, content }, layerIds, onDragEnd, onTransformEnd,
+}) => {
+  const isSelected = useAppSelector(
+    ({ editor }) => [...(editor.currentLayerIds || [])].pop() === id,
+  );
+  const dispatch = useAppDispatch();
+  const actions = useMemo(() => bindActionCreators({ selectLayerIds }, dispatch), [dispatch]);
 
-const LayerText: FunctionComponent<Props> = ({ layer: { appearance, content } }) => {
-  const { dimension, position, textStyle, transform } = appearance;
-  const centered = {
-    offsetX: dimension.width / 2,
-    offsetY: dimension.height / 2,
-    x: position.left + dimension.width / 2,
-    y: position.top + dimension.height / 2
+  const textRef = useRef<Konva.Text>(null);
+  const transformerRef = useRef<Konva.Transformer>(null);
+  useEffect(() => {
+    if (isSelected && transformerRef.current && textRef.current) {
+      transformerRef.current.nodes([textRef.current]);
+      transformerRef.current.getLayer()?.batchDraw();
+    }
+  }, [isSelected]);
+
+  const handleClick = () => {
+    actions.selectLayerIds(layerIds);
   };
 
+  const handleDragEnd = ({ target }: Konva.KonvaEventObject<DragEvent>) => {
+    onDragEnd(layerIds, Math.round(target.x()), Math.round(target.y()));
+  };
+
+  const handleTransformEnd = ({ target }: Konva.KonvaEventObject<Event>) => {
+    const scaleX = target.scaleX();
+    const scaleY = target.scaleY();
+    target.scaleX(1);
+    target.scaleY(1);
+    let { height, width } = appearance.dimension;
+    height = Math.round(height * scaleY);
+    width = Math.round(width * scaleX);
+
+    onTransformEnd(
+      layerIds,
+      Math.round(target.x()),
+      Math.round(target.y()),
+      width,
+      height,
+      Math.round(target.rotation()),
+    );
+  };
+
+  const { dimension, position, textStyle, transform } = appearance;
+
   return (
-    <Text
-      align={textStyle.textAlign}
-      fill={textStyle.color}
-      fontFamily={textStyle.fontFamily}
-      fontSize={textStyle.fontSize}
-      height={dimension.height}
-      letterSpacing={textStyle.letterSpacing}
-      offsetX={centered.offsetX}
-      offsetY={centered.offsetY}
-      rotation={transform.rotate}
-      text={content}
-      width={dimension.width}
-      x={centered.x}
-      y={centered.y}
-    />
+    <Group>
+      <Text
+        ref={textRef}
+        draggable={isSelected}
+        align={textStyle.textAlign}
+        fill={textStyle.color}
+        fontFamily={textStyle.fontFamily}
+        fontSize={textStyle.fontSize}
+        height={dimension.height}
+        letterSpacing={textStyle.letterSpacing}
+        onClick={handleClick}
+        onDragEnd={handleDragEnd}
+        onTransformEnd={handleTransformEnd}
+        rotation={transform.rotate}
+        text={content}
+        width={dimension.width}
+        x={position.left}
+        y={position.top}
+      />
+      {isSelected && (
+        <Transformer
+          ref={transformerRef}
+          centeredScaling
+        />
+      )}
+    </Group>
   );
 };
 

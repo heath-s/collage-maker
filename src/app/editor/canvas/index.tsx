@@ -44,6 +44,7 @@ const Canvas: FunctionComponent = () => {
                   <Layer>
                     <LayerGroup
                       layer={collage as unknown as CollageLayer<CollageLayerGroup>}
+                      layerIds={[]}
                     />
                   </Layer>
                 </Provider>

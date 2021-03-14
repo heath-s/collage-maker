@@ -164,10 +164,8 @@ const ImageEditor: FunctionComponent<Props> = ({ assetImages, layer, onImageAdde
             max={1}
             min={0}
             step={0.01}
-            onChange={async (_, value) => {
-              formik.setFieldValue('alpha', value);
-              await formik.submitForm();
-            }}
+            onChange={(_, value) => formik.setFieldValue('alpha', value)}
+            onChangeCommitted={() => formik.submitForm()}
             value={formik.values.alpha as number}
           />
         </FormControl>

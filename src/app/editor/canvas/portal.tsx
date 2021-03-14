@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, useEffect } from 'react';
+import React, { forwardRef, ReactNode, RefObject, useEffect } from 'react';
 import { render } from 'react-dom';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 // eslint-disable-next-line react/display-name
-const CanvasPortal = forwardRef<HTMLDivElement, Props>(({
+const CanvasPortal = forwardRef<HTMLElement, Props>(({
   children,
   height = 0,
   left = 0,
@@ -29,7 +29,7 @@ const CanvasPortal = forwardRef<HTMLDivElement, Props>(({
     render(
       (
         <div
-          ref={ref}
+          ref={ref as RefObject<HTMLDivElement>}
           style={{
             display: 'inline-block',
             left: offsetLeft + left,

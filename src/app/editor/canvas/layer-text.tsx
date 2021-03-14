@@ -1,9 +1,10 @@
-import React, { FunctionComponent, useEffect, useMemo, useRef } from 'react';
+import React, { FocusEvent, FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import Konva from 'konva';
 import { Group, Text, Transformer } from 'react-konva';
-import { selectLayerIds } from 'src/app/editor/duck';
+import { selectLayerIds, updateLayer } from 'src/app/editor/duck';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import CanvasPortal from './portal';
 import { CollageLayerText } from '../shared/collage.d';
 import { LayerProps } from './index.d';
 
@@ -14,14 +15,16 @@ type Props = LayerProps<CollageLayerText> & {
   ) => void;
 };
 
-const LayerText: FunctionComponent<Props> = ({
-  layer: { id, appearance, content }, layerIds, onDragEnd, onTransformEnd,
-}) => {
+const LayerText: FunctionComponent<Props> = ({ layer, layerIds, onDragEnd, onTransformEnd }) => {
+  const { id, appearance, content } = layer;
   const isSelected = useAppSelector(
     ({ editor }) => [...(editor.currentLayerIds || [])].pop() === id,
   );
   const dispatch = useAppDispatch();
-  const actions = useMemo(() => bindActionCreators({ selectLayerIds }, dispatch), [dispatch]);
+  const actions = useMemo(
+    () => bindActionCreators({ selectLayerIds, updateLayer }, dispatch),
+    [dispatch],
+  );
 
   const textRef = useRef<Konva.Text>(null);
   const transformerRef = useRef<Konva.Transformer>(null);
@@ -32,12 +35,32 @@ const LayerText: FunctionComponent<Props> = ({
     }
   }, [isSelected]);
 
+  const textareaRef = useRef<HTMLDivElement>(null);
+
   const handleClick = () => {
     actions.selectLayerIds(layerIds);
   };
 
+  const [isEditable, setIsEditable] = useState(false);
+  const [textareaContent, setTextareaContent] = useState('');
+  const handleDblClick = () => {
+    setTextareaContent(content);
+    setIsEditable(true);
+  };
+
   const handleDragEnd = ({ target }: Konva.KonvaEventObject<DragEvent>) => {
     onDragEnd(layerIds, Math.round(target.x()), Math.round(target.y()));
+  };
+
+  const handleTextareaBlur = ({ target }: FocusEvent<HTMLDivElement>) => {
+    actions.updateLayer({
+      layer: {
+        ...layer,
+        content: target.innerText
+      },
+      layerIds
+    });
+    setIsEditable(false);
   };
 
   const handleTransform = ({ target }: Konva.KonvaEventObject<Event>) => {
@@ -81,6 +104,7 @@ const LayerText: FunctionComponent<Props> = ({
         height={dimension.height}
         letterSpacing={textStyle.letterSpacing}
         onClick={handleClick}
+        onDblClick={handleDblClick}
         onDragEnd={handleDragEnd}
         onTransform={handleTransform}
         onTransformEnd={handleTransformEnd}
@@ -91,10 +115,56 @@ const LayerText: FunctionComponent<Props> = ({
         y={position.top}
       />
       {isSelected && (
-        <Transformer
-          ref={transformerRef}
-          centeredScaling
-        />
+        <>
+          {isEditable && (
+            <CanvasPortal
+              ref={textareaRef}
+              height={dimension.height}
+              left={textRef.current?.getAbsolutePosition().x}
+              offsetLeft={textRef.current?.getStage()?.container().offsetLeft}
+              offsetTop={textRef.current?.getStage()?.container().offsetTop}
+              rotate={transform.rotate}
+              top={textRef.current?.getAbsolutePosition().y}
+              width={dimension.width}
+            >
+              <div
+                contentEditable
+                onBlur={handleTextareaBlur}
+                style={{
+                  backgroundColor: '#ffffff',
+                  bottom: -1,
+                  border: '1px solid #000000',
+                  boxSizing: 'border-box',
+                  caretColor: 'black',
+                  color: textStyle.color,
+                  fontFamily: textStyle.fontFamily,
+                  fontSize: textStyle.fontSize,
+                  left: -1,
+                  letterSpacing: textStyle.letterSpacing,
+                  /**
+                   * @todo textStyle에 lineHeight가 들어가는 경우에 수정 필요
+                   */
+                  lineHeight: 1,
+                  overflow: 'hidden',
+                  outline: 'none',
+                  padding: 0,
+                  pointerEvents: 'auto',
+                  position: 'absolute',
+                  right: -1,
+                  textAlign: textStyle.textAlign,
+                  top: -1,
+                  whiteSpace: 'pre-wrap',
+                }}
+              >
+                {textareaContent}
+              </div>
+            </CanvasPortal>
+          )}
+          <Transformer
+            ref={transformerRef}
+            centeredScaling
+          />
+        </>
       )}
     </Group>
   );

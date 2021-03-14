@@ -182,8 +182,8 @@ export default {
         alpha: 1,
         compositeOperation: 'none',
         dimension: {
-          height: 246,
-          width: 192
+          height: 369,
+          width: 288
         },
         position: {
           left: 5,
@@ -205,8 +205,8 @@ export default {
         alpha: 1,
         compositeOperation: 'none',
         dimension: {
-          height: 237,
-          width: 177
+          height: 356,
+          width: 266
         },
         position: {
           left: 45,

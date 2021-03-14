@@ -24,7 +24,9 @@ export const translateCollageLayerToForm = (collageLayer: CollageLayer): FormObj
 
   case 'image': {
     const layer = collageLayer as CollageLayer<CollageLayerImage>;
+    form.alpha = layer.appearance.alpha;
     form.assetImageId = layer.assetImageId;
+    form.compositeOperation = layer.appearance.compositeOperation;
     break;
   }
 
@@ -74,6 +76,8 @@ export const translateFormToCollageLayer = (
 
   case 'image': {
     const layer = collageLayer as CollageLayer<CollageLayerImage>;
+    layer.appearance.alpha = form.alpha as number;
+    layer.appearance.compositeOperation = form.compositeOperation as string;
     layer.assetImageId = form.assetImageId as string;
     break;
   }

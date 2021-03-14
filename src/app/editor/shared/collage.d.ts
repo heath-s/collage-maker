@@ -9,9 +9,10 @@ export interface CollageLayerGroup {
 interface CollageLayerImage {
   type: 'image';
   assetImageId: UUID;
-  /**
-   * @todo Blending 효과 등
-   */
+  appearance: {
+    alpha: number;
+    compositeOperation?: typeof CanvasRenderingContext2D['globalCompositeOperation'];
+  };
 }
 
 interface CollageLayerText {

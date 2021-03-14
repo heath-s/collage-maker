@@ -31,7 +31,7 @@ export default {
           title: 'ReplaceableImage 2'
         }
       },
-      'template_scrapbook_2_3_imagex': {
+      'template_scrapbook_2_3_image-x': {
         id: 'template_scrapbook_2_3_image-x',
         content: '/assets/templates/template_scrapbook_2_3_image-x.png',
         metadata: {
@@ -61,6 +61,7 @@ export default {
           type: 'image',
           assetImageId: 'template_scrapbook_2_3_image-x',
           appearance: {
+            alpha: 1,
             dimension: {
               height: 596,
               width: 335
@@ -82,6 +83,8 @@ export default {
           type: 'image',
           assetImageId: 'template_scrapbook_2_1_blending_multiply',
           appearance: {
+            alpha: 1,
+            compositeOperation: 'multiply',
             dimension: {
               height: 596,
               width: 335
@@ -175,6 +178,7 @@ export default {
       type: 'image',
       assetImageId: 'template_scrapbook_2_2_image',
       appearance: {
+        alpha: 1,
         dimension: {
           height: 246,
           width: 192
@@ -196,6 +200,7 @@ export default {
       type: 'image',
       assetImageId: 'template_scrapbook_2_1_image',
       appearance: {
+        alpha: 1,
         dimension: {
           height: 237,
           width: 177

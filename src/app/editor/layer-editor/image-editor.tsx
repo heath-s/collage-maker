@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FunctionComponent, useEffect, useMemo } from 'react';
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
+import { Button, FormControl, InputLabel, MenuItem, Select, Slider, TextField, Typography } from '@material-ui/core';
 import { useFormik } from 'formik';
 import { Collage, CollageAssetImage } from '../shared/collage.d';
 import { EditorProps, FormObject } from './index.d';
@@ -9,6 +9,14 @@ type Props = EditorProps & {
   assetImages: Collage['assets']['images'];
   onImageAdded: (image: CollageAssetImage) => void;
 };
+
+const COMPOSITE_OPERATIONS = [
+  'source-over', 'source-in', 'source-out', 'source-atop',
+  'destination-over', 'destination-in', 'destination-out', 'destination-atop',
+  'lighter', 'copy', 'xor', 'multiply', 'screen', 'overlay', 'darken', 'lighten',
+  'color-dodge', 'color-burn', 'hard-light', 'soft-light',
+  'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity',
+];
 
 const ImageEditor: FunctionComponent<Props> = ({ assetImages, layer, onImageAdded, onChange }) => {
   const formik = useFormik({
@@ -147,6 +155,41 @@ const ImageEditor: FunctionComponent<Props> = ({ assetImages, layer, onImageAdde
             type="number"
             value={(formik.values.transform as FormObject).rotate}
           />
+        </FormControl>
+
+        <FormControl fullWidth>
+          <Typography gutterBottom>Alpha</Typography>
+          <Slider
+            name="alpha"
+            max={1}
+            min={0}
+            step={0.01}
+            onChange={async (_, value) => {
+              formik.setFieldValue('alpha', value);
+              await formik.submitForm();
+            }}
+            value={formik.values.alpha as number}
+          />
+        </FormControl>
+
+        <FormControl fullWidth>
+          <InputLabel>Composite Operation</InputLabel>
+          <Select
+            name="compositeOperation"
+            onChange={handleChange}
+            value={formik.values.compositeOperation}
+          >
+            <MenuItem>없음</MenuItem>
+
+            {COMPOSITE_OPERATIONS.map((id) => (
+              <MenuItem
+                key={id}
+                value={id}
+              >
+                {id}
+              </MenuItem>
+            ))}
+          </Select>
         </FormControl>
       </form>
     </section>

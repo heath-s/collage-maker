@@ -102,16 +102,9 @@ export default {
       },
       layerOrder: ['layer-1-1', 'layer-1-2'],
       appearance: {
-        dimension: {
-          height: 596,
-          width: 335
-        },
         position: {
           left: 0,
           top: 0
-        },
-        transform: {
-          rotate: 0
         }
       }
     },
@@ -193,8 +186,8 @@ export default {
               width: 288
             },
             position: {
-              left: 99,
-              top: 339
+              left: 0,
+              top: 0
             },
             transform: {
               rotate: 0
@@ -217,19 +210,17 @@ export default {
               width: 172
             },
             position: {
-              left: 144,
-              top: 420
+              left: 56,
+              top: 87
             },
             transform: {
-              rotate: -6
+              rotate: -5
             }
           }
         }
       },
       layerOrder: ['layer-4-1', 'layer-4-2'],
       appearance: {
-        alpha: 1,
-        compositeOperation: 'none',
         position: {
           left: 99,
           top: 339
@@ -258,8 +249,8 @@ export default {
               width: 266
             },
             position: {
-              left: -34,
-              top: 186
+              left: 0,
+              top: 0
             },
             transform: {
               rotate: 0
@@ -282,8 +273,8 @@ export default {
               width: 172
             },
             position: {
-              left: 32,
-              top: 238
+              left: 63,
+              top: 57
             },
             transform: {
               rotate: 10
@@ -293,8 +284,6 @@ export default {
       },
       layerOrder: ['layer-5-1', 'layer-5-2'],
       appearance: {
-        alpha: 1,
-        compositeOperation: 'none',
         position: {
           left: -34,
           top: 186
@@ -302,5 +291,5 @@ export default {
       }
     }
   },
-  layerOrder: ['layer-1', 'layer-2', 'layer-3', 'layer-4', 'layer-5']
+  layerOrder: ['layer-1', 'layer-2', 'layer-3', 'layer-4', 'layer-5'],
 } as Collage;

@@ -2,7 +2,7 @@
   "name": "collage-maker",
   "version": "0.0.1",
   "author": "신희성 (Heath) <5037055+lumiere0b@users.noreply.github.com>",
-  "description": "Collage Maker",
+  "description": "Collage Maker 테스트 앱",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",

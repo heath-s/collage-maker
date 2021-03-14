@@ -1,7 +1,7 @@
 import { CollageLayer } from '../shared/collage.d';
 
 export type FormObject = {
-  [key: string]: string | number | FormObject;
+  [key: string]: boolean | string | number | FormObject;
 };
 
 export interface EditorProps {

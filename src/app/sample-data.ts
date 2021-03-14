@@ -20,7 +20,7 @@ export default {
         content: '/assets/templates/template_scrapbook_2_1_image.png',
         metadata: {
           mimeType: 'image/png',
-          title: 'ReplaceableImage 1'
+          title: 'Photo 1'
         }
       },
       'template_scrapbook_2_2_image': {
@@ -28,7 +28,7 @@ export default {
         content: '/assets/templates/template_scrapbook_2_2_image.png',
         metadata: {
           mimeType: 'image/png',
-          title: 'ReplaceableImage 2'
+          title: 'Photo 2'
         }
       },
       'template_scrapbook_2_3_image-x': {
@@ -174,14 +174,14 @@ export default {
     'layer-4': {
       id: 'layer-4',
       metadata: {
-        title: 'ReplaceableImageGroup 1'
+        title: 'PhotoGroup 1'
       },
       type: 'group',
       layers: {
         'layer-4-1': {
           id: 'layer-4-1',
           metadata: {
-            title: 'ReplaceableImage 1 Background'
+            title: 'Photo 1 Background'
           },
           type: 'image',
           assetImageId: 'template_scrapbook_2_2_image',
@@ -204,7 +204,8 @@ export default {
         'layer-4-2': {
           id: 'layer-4-2',
           metadata: {
-            title: 'ReplaceableImageGroup 1'
+            title: 'Photo 1',
+            isAssetReplaceable: true,
           },
           type: 'image',
           assetImageId: '',
@@ -245,14 +246,14 @@ export default {
     'layer-5': {
       id: 'layer-5',
       metadata: {
-        title: 'ReplaceableImage 2'
+        title: 'PhotoGroup 2'
       },
       type: 'group',
       layers: {
         'layer-5-1': {
           id: 'layer-5-1',
           metadata: {
-            title: 'ReplaceableImage 2 Background'
+            title: 'Photo 2 Background'
           },
           type: 'image',
           assetImageId: 'template_scrapbook_2_1_image',
@@ -275,7 +276,8 @@ export default {
         'layer-5-2': {
           id: 'layer-5-2',
           metadata: {
-            title: 'ReplaceableImage 2'
+            title: 'Photo 2',
+            isAssetReplaceable: true,
           },
           type: 'image',
           assetImageId: '',

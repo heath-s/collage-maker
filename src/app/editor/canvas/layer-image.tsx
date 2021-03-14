@@ -18,7 +18,11 @@ type Props = LayerProps<CollageLayerImage> & {
 };
 
 const LayerImage: FunctionComponent<Props> = ({
-  layer: { id, appearance, assetImageId }, layerIds, onDragEnd, onImageAdded, onTransformEnd,
+  layer: { id, appearance, assetImageId, metadata: { isAssetReplaceable = false } },
+  layerIds,
+  onDragEnd,
+  onImageAdded,
+  onTransformEnd,
 }) => {
   const isSelected = useAppSelector(
     ({ editor }) => [...(editor.currentLayerIds || [])].pop() === id,
@@ -133,31 +137,33 @@ const LayerImage: FunctionComponent<Props> = ({
       />
       {isSelected && (
         <>
-          <CanvasPortal
-            ref={dropRef}
-            height={dimension.height}
-            left={imageRef.current?.getAbsolutePosition().x}
-            offsetLeft={imageRef.current?.getStage()?.container().offsetLeft}
-            offsetTop={imageRef.current?.getStage()?.container().offsetTop}
-            rotate={transform.rotate}
-            top={imageRef.current?.getAbsolutePosition().y}
-            width={dimension.width}
-          >
-            <div
-              onDragEnd={handleFileDragOut}
-              onDragLeave={handleFileDragOut}
-              onDragOver={handleFileDragIn}
-              onDrop={handleFileDrop}
-              style={{
-                bottom: '33%',
-                left: '33%',
-                pointerEvents: 'auto',
-                position: 'absolute',
-                right: '33%',
-                top: '33%',
-              }}
-            />
-          </CanvasPortal>
+          {isAssetReplaceable && (
+            <CanvasPortal
+              ref={dropRef}
+              height={dimension.height}
+              left={imageRef.current?.getAbsolutePosition().x}
+              offsetLeft={imageRef.current?.getStage()?.container().offsetLeft}
+              offsetTop={imageRef.current?.getStage()?.container().offsetTop}
+              rotate={transform.rotate}
+              top={imageRef.current?.getAbsolutePosition().y}
+              width={dimension.width}
+            >
+              <div
+                onDragEnd={handleFileDragOut}
+                onDragLeave={handleFileDragOut}
+                onDragOver={handleFileDragIn}
+                onDrop={handleFileDrop}
+                style={{
+                  bottom: '33%',
+                  left: '33%',
+                  pointerEvents: 'auto',
+                  position: 'absolute',
+                  right: '33%',
+                  top: '33%',
+                }}
+              />
+            </CanvasPortal>
+          )}
           <Transformer
             ref={transformerRef}
             centeredScaling

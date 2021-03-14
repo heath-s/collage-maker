@@ -8,6 +8,9 @@ export interface CollageLayerGroup {
 
 interface CollageLayerImage {
   type: 'image';
+  metadata: {
+    isAssetReplaceable?: boolean;
+  };
   assetImageId: UUID;
   appearance: {
     alpha: number;

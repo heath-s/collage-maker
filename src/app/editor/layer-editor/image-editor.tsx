@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FunctionComponent, useEffect, useMemo } from 'react';
 import { Button, FormControl, InputLabel, MenuItem, Select, Slider, TextField, Typography } from '@material-ui/core';
 import { useFormik } from 'formik';
-import { Collage, CollageAssetImage } from '../shared/collage.d';
+import { Collage, CollageAssetImage, CollageLayer, CollageLayerImage } from '../shared/collage.d';
 import { EditorProps, FormObject } from './index.d';
 import { translateCollageLayerToForm, translateFormToCollageLayer } from './translator';
 
 type Props = EditorProps & {
   assetImages: Collage['assets']['images'];
+  layer: CollageLayer<CollageLayerImage>;
   onImageAdded: (image: CollageAssetImage) => void;
 };
 
@@ -82,7 +83,10 @@ const ImageEditor: FunctionComponent<Props> = ({ assetImages, layer, onImageAdde
           />
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl
+          fullWidth
+          disabled={!layer.metadata.isAssetReplaceable}
+        >
           <InputLabel>Asset Image Id</InputLabel>
           <Select
             name="assetImageId"
@@ -101,11 +105,13 @@ const ImageEditor: FunctionComponent<Props> = ({ assetImages, layer, onImageAdde
           </Select>
         </FormControl>
 
-        <Button
-          onClick={handleClickAddImage}
-        >
-          Add Image
-        </Button>
+        {layer.metadata.isAssetReplaceable && (
+          <Button
+            onClick={handleClickAddImage}
+          >
+            Add Image
+          </Button>
+        )}
 
         <FormControl fullWidth>
           <TextField
